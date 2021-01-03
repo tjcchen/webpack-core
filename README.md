@@ -52,7 +52,7 @@ module.exports = class Compiler {
 
 By doing so, webpack plugins build connections with Tapable, both Compiler and Compilation inherit from Tapable.( We'll cover Compiler and Compilation soon )
 
-Note: For more information about Tapable module, please also refer to [Tapable](#https://github.com/webpack/tapable).
+Note: For more information about Tapable module, please also refer to [Tapable](https://github.com/webpack/tapable).
 
 # Contact
 Email: tjcchen.engineer@gmail.com
