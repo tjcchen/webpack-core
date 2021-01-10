@@ -32,7 +32,7 @@ Webpack utilizes `hooks.entryOption` hook, which is declared in `Compiler.js` an
 
 There are many import hooks take effect at this stage, including `hooks.run`(in Compiler.js), `hooks.make`(in Compiler), `hooks.beforeResolve`(in NormalModuleFactory and ContextModuleFactory), `hooks.buildModule`(in Compilation.js), `hooks.normalModuleLoader`(in Compilation.js), `hooks.program`(in Parser.js), these hooks resolve code dependencies and build modules, finally generate es5 code.  
   
-Note: Webpack utilizes [acron](https://github.com/acornjs/acorn) to work as a parser - parsing es6 code to AST, and then transforming AST to es5 code, not [babel](https://github.com/babel/babel).
+Note: Webpack utilizes [acron](https://github.com/acornjs/acorn) to work as a parser - parsing es6 code to AST, and then transforming AST to es5 code, not [@babel/parser](https://github.com/babel/babel). Actually, `@babel/parser` was born as a fork of `acorn`, but it has been completely rewritten.
 
 - Optimize and Emit Files Stage:  
 
