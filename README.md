@@ -22,6 +22,22 @@ function processOptions(options) {
 processOptions(options);
 ```
 
+## Webpack Build Process
+The whole build process of webpack contains several important hooks, which are mostly declared in Compiler.js and Compilation.js. These hooks control crucial time slots of the building lifecycle. Basically, they can be divided into three stages.
+- Preparation Stage:  
+
+Webpack utilizes `hooks.entryOption` hook, which is declared in `Compiler.js` and invoked in `WebpackOptionsApply.js`, to convert config options to webpack built-in plugins, and register all of these plugins to compiler object. 
+
+- Build Process Stage:  
+
+There are many import hooks take effect at this stage, including `hooks.run`(in Compiler.js), `hooks.make`(in Compiler), `hooks.beforeResolve`(in NormalModuleFactory and ContextModuleFactory), `hooks.buildModule`(in Compilation.js), `hooks.normalModuleLoader`(in Compilation.js), `hooks.program`(in Parser.js), these hooks resolve code dependencies and build modules, finally generate es5 code.  
+  
+Note: Webpack utilizes [acron](https://github.com/acornjs/acorn) to work as a parser - parsing es6 code to AST, and then transforming AST to es5 code, not [babel](https://github.com/babel/babel).
+
+- Optimize and Emit Files Stage:  
+
+Webpack finally optimizes the generated chunks inside `hooks.seal`(in Compilation.js) hook, and then generate output files inside `hooks.emit`(in Compiler.js) hook.
+
 ## Tapable and Webpack Plugin Mechanism
 Tapable is similar to Node's EventEmitter module, which takes care of event subscription and publishing of Node, and it controls the plugin system of webpack. Tapable is capable of registering plugin and invoking plugin, the key code logic is buried within webpack.js:
 ```js
@@ -61,22 +77,6 @@ module.exports = class Compiler {
 By doing so, webpack plugins build connections with Tapable, both Compiler and Compilation inherit from Tapable.
 
 Note: For more information about Tapable module, please also refer to [Tapable](https://github.com/webpack/tapable).
-
-## Webpack Build Process
-The whole build process of webpack contains several important hooks, which are mostly declared in Compiler.js and Compilation.js. These hooks control crucial time slots of the building lifecycle. Basically, they can be divided into three stages.
-- Preparation Stage:  
-
-Webpack utilizes `hooks.entryOption` hook, which is declared in `Compiler.js` and invoked in `WebpackOptionsApply.js`, to convert config options to webpack built-in plugins, and register all of these plugins to compiler object. 
-
-- Build Process Stage:  
-
-There are many import hooks take effect at this stage, including `hooks.run`(in Compiler.js), `hooks.make`(in Compiler), `hooks.beforeResolve`(in NormalModuleFactory and ContextModuleFactory), `hooks.buildModule`(in Compilation.js), `hooks.normalModuleLoader`(in Compilation.js), `hooks.program`(in Parser.js), these hooks resolve code dependencies and build modules, finally generate es5 code.  
-  
-Note: Webpack utilizes [acron](https://github.com/acornjs/acorn) to work as a parser - parsing es6 code to AST, and then transforming AST to es5 code, not [babel](https://github.com/babel/babel).
-
-- Optimize and Emit Files Stage:  
-
-Webpack finally optimizes the generated chunks inside `hooks.seal`(in Compilation.js) hook, and then generate output files inside `hooks.emit`(in Compiler.js) hook.
 
 ## Contact
 Email: tjcchen.engineer@gmail.com
