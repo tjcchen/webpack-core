@@ -7,8 +7,26 @@ Webpack & Webpack-cli
 Wepack will find whether a user has webpack-cli or webpack-command package installed. If not, the command line would prompt the user to install it. Webpack, then, would execute the webpack-cli module.
 
 Webpack-cli will do two things in the build process as follows:
-- Convert configuration file arguments or command line arguments to webpack options.
-- Apply these webpack options to instantiate webpack objects, and then execute the build process.
+- Convert configuration file arguments or command line arguments to webpack options:
+```js
+let options = require("./utils/convert-argv")(argv);
+```
+- Apply these webpack options to instantiate webpack objects, and then execute the build process:
+```js
+/**
+ * Key Code Logics
+ */
+function processOptions(options) {
+  const webpack = require('webpack');
+
+  let compiler = webpack(options);
+
+  // run build process
+  compiler.run((err, stats) => { ... });
+}
+
+processOptions(options);
+```
 
 ## Tapable and Webpack Plugin Mechanism
 Tapable is similar to Node's EventEmitter module, which takes care of event subscription and publishing of Node, and it controls the plugin system of webpack. Tapable is capable of registering plugin and invoking plugin, the key code logic is buried within webpack.js:
