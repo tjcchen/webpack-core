@@ -13,16 +13,12 @@ let options = require("./utils/convert-argv")(argv);
 ```
 - Apply these webpack options to instantiate webpack objects, and then execute the build process:
 ```js
-/**
- * Key Code Logics
- */
 function processOptions(options) {
   const webpack = require('webpack');
 
   let compiler = webpack(options);
 
-  // run build process
-  compiler.run((err, stats) => { ... });
+  compiler.run((err, stats) => { ... }); // run build process
 }
 
 processOptions(options);
@@ -38,12 +34,9 @@ Webpack plugin registers its functionality within `apply` function with Tapable 
 ```js
 class SomeGreatPlugin {
   ...
-
   apply(compiler) {
-    // bind event
-    compiler.hooks.brake.tap('SomeGreatPlugin', () => { ... });
+    compiler.hooks.brake.tap('SomeGreatPlugin', () => { ... }); // bind event
   }
-
   ...
 }
 ```
@@ -62,15 +55,17 @@ module.exports = class Compiler {
   }
 
   brake() {
-    // invoke event
-    this.hooks.brake.call();
+    this.hooks.brake.call(); // invoke event
   }
 }
 ```
 
-By doing so, webpack plugins build connections with Tapable, both Compiler and Compilation inherit from Tapable. ( We'll cover Compiler and Compilation soon )
+By doing so, webpack plugins build connections with Tapable, both Compiler and Compilation inherit from Tapable.
 
 Note: For more information about Tapable module, please also refer to [Tapable](https://github.com/webpack/tapable).
+
+## Webpack Compiler and Compilation
+Compiler and Compilation
 
 ## Contact
 Email: tjcchen.engineer@gmail.com
