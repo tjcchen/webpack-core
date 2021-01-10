@@ -35,7 +35,7 @@ Webpack plugin registers its functionality within `apply` function with Tapable 
 class SomeGreatPlugin {
   ...
   apply(compiler) {
-    compiler.hooks.brake.tap('SomeGreatPlugin', () => { ... }); // bind event
+    compiler.hooks.compile.tap('SomeGreatPlugin', () => { ... }); // bind event
   }
   ...
 }
@@ -46,16 +46,16 @@ Webpack compiler invokes plugin functionality inside its own code logic:
 module.exports = class Compiler {
   constructor() {
     this.hooks = {
-      brake: new SyncHook()
+      compile: new SyncHook(["params"])
     };
   }
 
   run() {
-    this.brake();
+    this.compile();
   }
 
-  brake() {
-    this.hooks.brake.call(); // invoke event
+  compile() {
+    this.hooks.compile.call(); // invoke event
   }
 }
 ```
