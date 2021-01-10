@@ -1,9 +1,7 @@
 ## Webpack Core
-A project used to elaborate on the core concept of webpack! In this repo, we are focusing on webpack version v4.*
+A project used to elaborate on the core concept of webpack! In this repo, we are focusing on webpack version v4.
 
-## Webpack Mechanism
-Webpack & Webpack-cli
-
+## Webpack & Webpack-cli
 Wepack will find whether a user has webpack-cli or webpack-command package installed. If not, the command line would prompt the user to install it. Webpack, then, would execute the webpack-cli module.
 
 Webpack-cli will do two things in the build process as follows:
